@@ -1,14 +1,14 @@
 use serde::{Deserialize, Serialize};
 
 // FWCFG 类型的 sysinfo
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct FwcfgSysinfo {
     #[serde(rename = "entry", default)]
     pub entries: Vec<FwcfgEntry>,
 }
 
 // FWCFG 条目
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct FwcfgEntry {
     #[serde(rename = "@name")]
     pub name: String,

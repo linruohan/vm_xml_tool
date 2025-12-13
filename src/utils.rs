@@ -9,7 +9,7 @@ pub fn read_vm_config(path: &str) -> Result<Domain, Box<dyn std::error::Error>> 
     file.read_to_string(&mut contents)
         .map_err(|e| format!("Failed to read file: {}", e))?;
 
-    from_reader(contents.as_bytes()).map_err(|e| format!("XML parsing error: {}", e).into())
+    from_reader(contents.as_bytes()).map_err(|e| format!("XML parsing error: {:#?}", e).into())
 }
 
 pub fn write_vm_config(domain: &Domain, path: &str) -> Result<(), Box<dyn std::error::Error>> {

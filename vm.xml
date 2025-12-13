@@ -12,8 +12,56 @@
     <vcpu>1</vcpu>
     <os>
         <type arch="x86_64">hvm</type>
+        <loader readonly='yes' secure='yes' type='pflash'>/usr/share/OVMF/OVMF_CODE.fd</loader>
+        <!--nvram template='/usr/share/OVMF/OVMF_VARS.fd'>/var/lib/libvirt/nvram/guest_VARS.fd</nvram-->
+        <!--nvram type='file' template='/usr/share/OVMF/OVMF_VARS.fd'>
+            <source file='/var/lib/libvirt/nvram/guest_VARS.fd'/>
+        </nvram-->
+        <nvram type='network'>
+            <source protocol='iscsi' name='iqn.2013-07.com.example:iscsi-nopool/0'>
+                <host name='example.com' port='6000'/>
+                <auth username='myname'>
+                    <secret type='iscsi' usage='mycluster_myname'/>
+                </auth>
+            </source>
+        </nvram>
+        <bootmenu enable='yes' timeout='3000'/>
+        <smbios mode='sysinfo'/>
+        <bios useserial='yes' rebootTimeout='0'/>
         <boot dev='hd'/>
+        <boot dev='cdrom'/>
     </os>
+    <!--sysinfo type='smbios'>
+        <bios>
+            <entry name='vendor'>LENOVO</entry>
+        </bios>
+        <system>
+            <entry name='manufacturer'>Fedora</entry>
+            <entry name='product'>Virt-Manager</entry>
+            <entry name='version'>0.9.4</entry>
+        </system>
+        <baseBoard>
+            <entry name='manufacturer'>LENOVO</entry>
+            <entry name='product'>20BE0061MC</entry>
+            <entry name='version'>0B98401 Pro</entry>
+            <entry name='serial'>W1KS427111E</entry>
+        </baseBoard>
+        <chassis>
+            <entry name='manufacturer'>Dell Inc.</entry>
+            <entry name='version'>2.12</entry>
+            <entry name='serial'>65X0XF2</entry>
+            <entry name='asset'>40000101</entry>
+            <entry name='sku'>Type3Sku1</entry>
+        </chassis>
+        <oemStrings>
+            <entry>myappname:some arbitrary data</entry>
+            <entry>otherappname:more arbitrary data</entry>
+        </oemStrings>
+    </sysinfo-->
+    <!--sysinfo type='fwcfg'>
+        <entry name='opt/com.example/name'>example value</entry>
+        <entry name='opt/com.coreos/config' file='/tmp/provision.ign'/>
+    </sysinfo-->
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>
