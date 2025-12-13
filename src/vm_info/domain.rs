@@ -1,4 +1,4 @@
-use super::{Memory, MetaData, Os};
+use super::{Memory, MetaData, Os, Sysinfo};
 use crate::Devices;
 use serde::{Deserialize, Serialize};
 
@@ -26,5 +26,7 @@ pub struct Domain {
     pub memory: Memory,
     pub vcpu: u32,
     pub os: Os,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sysinfo: Option<Sysinfo>,
     pub devices: Devices,
 }
