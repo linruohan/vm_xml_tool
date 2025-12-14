@@ -9,8 +9,10 @@ pub struct SmbiosSysinfo {
     pub sysinfo_type: String, // "smbios"
     pub bios: Option<BiosInfo>,
     pub system: Option<SystemInfo>,
+    #[serde(rename = "baseBoard")]
     pub base_board: Option<BaseBoardInfo>,
     pub chassis: Option<ChassisInfo>,
+    #[serde(rename = "oemStrings")]
     pub oem_strings: Option<OemStringsInfo>,
 }
 
@@ -46,9 +48,8 @@ pub struct ChassisInfo {
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct OemStringsInfo {
     #[serde(rename = "entry", default)]
-    pub entries: Vec<SysinfoEntry>,
+    pub entries: Vec<OemStringEntry>,
 }
-
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct OemStringEntry {
     #[serde(rename = "$text")]

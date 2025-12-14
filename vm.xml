@@ -1,6 +1,5 @@
 <domain type="kvm">
     <name>test</name>
-    <memory unit="KiB">1048576</memory>
     <uuid>4dea22b3-1d52-d8f3-2516-782e98ab3fa0</uuid>
     <genid>43dc0cf8-809b-4adb-9bea-a9abb5f3d90e</genid>
     <title>A short description - title - of the domain</title>
@@ -99,6 +98,9 @@
             <node id='0' bandwidth='60'/>
         </memorytune>
     </cputune>
+    <maxMemory slots='16' unit='KiB'>1524288</maxMemory>
+    <memory unit='KiB'>524288</memory>
+    <currentMemory unit='KiB'>524288</currentMemory>
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>

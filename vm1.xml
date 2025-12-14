@@ -1,5 +1,15 @@
 <domain type="kvm">
-    <!--sysinfo type='smbios'>
+    <name>vm1</name>
+    <maxMemory slots='16' unit='KiB'>1524288</maxMemory>
+    <memory unit='KiB'>524288</memory>
+    <currentMemory unit='KiB'>524288</currentMemory>
+    <vcpu>8</vcpu>
+    <os>
+        <type arch="x86_64">hvm</type>
+        <boot dev='hd'/>
+    </os>
+
+    <sysinfo type='smbios'>
         <bios>
             <entry name='vendor'>LENOVO</entry>
         </bios>
@@ -25,9 +35,16 @@
             <entry>myappname:some arbitrary data</entry>
             <entry>otherappname:more arbitrary data</entry>
         </oemStrings>
-    </sysinfo-->
+    </sysinfo>
     <sysinfo type='fwcfg'>
         <entry name='opt/com.example/name'>example value</entry>
         <entry name='opt/com.coreos/config' file='/tmp/provision.ign'/>
     </sysinfo>
+    <devices>
+        <disk type="file" device="disk">
+            <driver name="qemu" type="qcow2"/>
+            <source file="/var/lib/libvirt/images/test.qcow2"/>
+            <target dev="vda" bus="virtio"/>
+        </disk>
+    </devices>
 </domain>
