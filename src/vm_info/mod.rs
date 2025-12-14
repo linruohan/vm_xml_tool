@@ -18,7 +18,7 @@ use memory::Memory;
 use memory_backing::MemoryBacking;
 use memtune::MemTune;
 use meta_data::MetaData;
-use numatune::Numatune;
+use numatune::NumaTune;
 use os::Os;
 use sysinfo::Sysinfo;
 pub use utils::*;
