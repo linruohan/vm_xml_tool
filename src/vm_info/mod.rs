@@ -3,6 +3,7 @@ mod devices;
 mod domain;
 mod memory;
 mod memory_backing;
+mod memtune;
 mod meta_data;
 mod os;
 mod sysinfo;
