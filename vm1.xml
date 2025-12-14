@@ -1,0 +1,34 @@
+<domain type="kvm">
+
+    <sysinfo type='smbios'>
+        <bios>
+            <entry name='vendor'>LENOVO</entry>
+        </bios>
+        <system>
+            <entry name='manufacturer'>Fedora</entry>
+            <entry name='product'>Virt-Manager</entry>
+            <entry name='version'>0.9.4</entry>
+        </system>
+        <baseBoard>
+            <entry name='manufacturer'>LENOVO</entry>
+            <entry name='product'>20BE0061MC</entry>
+            <entry name='version'>0B98401 Pro</entry>
+            <entry name='serial'>W1KS427111E</entry>
+        </baseBoard>
+        <chassis>
+            <entry name='manufacturer'>Dell Inc.</entry>
+            <entry name='version'>2.12</entry>
+            <entry name='serial'>65X0XF2</entry>
+            <entry name='asset'>40000101</entry>
+            <entry name='sku'>Type3Sku1</entry>
+        </chassis>
+        <oemStrings>
+            <entry>myappname:some arbitrary data</entry>
+            <entry>otherappname:more arbitrary data</entry>
+        </oemStrings>
+    </sysinfo>
+    <!--sysinfo type='fwcfg'>
+        <entry name='opt/com.example/name'>example value</entry>
+        <entry name='opt/com.coreos/config' file='/tmp/provision.ign'/>
+    </sysinfo-->
+</domain>

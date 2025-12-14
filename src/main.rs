@@ -1,4 +1,4 @@
-use vm_xml_tool::{Domain, read_vm_config, write_vm_config};
+use vm_xml_tool::{read_vm_config, write_vm_config, Domain};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 读取配置

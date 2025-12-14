@@ -18,9 +18,10 @@ pub struct Sysinfo {
     #[serde(flatten)]
     pub content: SysinfoContent,
 }
+
 fn deserialize_entries<'de, D>(deserializer: D) -> Result<Vec<FwcfgEntry>, D::Error>
-                               where
-                                   D: Deserializer<'de>,
+                                                where
+                                                    D: Deserializer<'de>,
 {
     struct EntryVisitor;
 
@@ -33,8 +34,8 @@ fn deserialize_entries<'de, D>(deserializer: D) -> Result<Vec<FwcfgEntry>, D::Er
 
         // 处理数组情况
         fn visit_seq<A>(self, seq: A) -> Result<Vec<FwcfgEntry>, A::Error>
-                        where
-                            A: SeqAccess<'de>,
+                                      where
+                                          A: SeqAccess<'de>,
         {
             let mut entries = Vec::new();
             let mut seq = seq;
@@ -48,8 +49,8 @@ fn deserialize_entries<'de, D>(deserializer: D) -> Result<Vec<FwcfgEntry>, D::Er
 
         // 处理单个元素情况
         fn visit_map<M>(self, map: M) -> Result<Vec<FwcfgEntry>, M::Error>
-                        where
-                            M: MapAccess<'de>,
+                                      where
+                                          M: MapAccess<'de>,
         {
             let entry = FwcfgEntry::deserialize(serde::de::value::MapAccessDeserializer::new(map))?;
             Ok(vec![entry])
@@ -112,47 +113,21 @@ impl From<SysinfoIntermediate> for SysinfoContent {
 }
 impl<'de> Deserialize<'de> for SysinfoContent {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-                      where
-                          D: Deserializer<'de>,
+                                       where
+                                           D: Deserializer<'de>,
     {
         let intermediate = SysinfoIntermediate::deserialize(deserializer)?;
         Ok(SysinfoContent::from(intermediate))
     }
 }
-// impl Serialize for SysinfoContent {
-//     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-//                     where
-//                         S: serde::Serializer,
-//     {
-//         match &self.inner {
-//             SysinfoContentEnum::Smbios(smbios) => smbios.serialize(serializer),
-//             SysinfoContentEnum::Fwcfg(fwcfg) => fwcfg.serialize(serializer),
-//         }
-//     }
-// }
-
 impl Serialize for SysinfoContent {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-                    where
-                        S: serde::Serializer,
+                                          where
+                                              S: serde::Serializer,
     {
         match &self.inner {
-            SysinfoContentEnum::Smbios(smbios) => {
-                use serde::ser::SerializeStruct;
-                let mut state = serializer.serialize_struct("SmbiosSysinfo", 5)?;
-                state.serialize_field("bios", &smbios.bios)?;
-                state.serialize_field("system", &smbios.system)?;
-                state.serialize_field("baseBoard", &smbios.base_board)?;
-                state.serialize_field("chassis", &smbios.chassis)?;
-                state.serialize_field("oemStrings", &smbios.oem_strings)?;
-                state.end()
-            }
-            SysinfoContentEnum::Fwcfg(fwcfg) => {
-                use serde::ser::SerializeStruct;
-                let mut state = serializer.serialize_struct("FwcfgSysinfo", 1)?;
-                state.serialize_field("entry", &fwcfg.entries)?;
-                state.end()
-            }
+            SysinfoContentEnum::Smbios(smbios) => smbios.serialize(serializer),
+            SysinfoContentEnum::Fwcfg(fwcfg) => fwcfg.serialize(serializer),
         }
     }
 }

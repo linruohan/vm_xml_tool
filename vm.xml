@@ -9,7 +9,11 @@
         <app1:foo xmlns:app1="http://app1.org/app1/">..</app1:foo>
         <app2:bar xmlns:app2="http://app1.org/app2/">..</app2:bar>
     </metadata>
-    <vcpu>1</vcpu>
+    <vcpu placement='static' cpuset="1-4,^3,6" current="1">2</vcpu>
+    <vcpus>
+        <vcpu id='0' enabled='yes' hotpluggable='no' order='1'/>
+        <vcpu id='1' enabled='no' hotpluggable='yes'/>
+    </vcpus>
     <os>
         <type arch="x86_64">hvm</type>
         <loader readonly='yes' secure='yes' type='pflash'>/usr/share/OVMF/OVMF_CODE.fd</loader>
@@ -62,6 +66,7 @@
         <entry name='opt/com.example/name'>example value</entry>
         <entry name='opt/com.coreos/config' file='/tmp/provision.ign'/>
     </sysinfo-->
+
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>

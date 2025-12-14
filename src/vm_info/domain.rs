@@ -1,4 +1,4 @@
-use super::{Memory, MetaData, Os, Sysinfo};
+use super::{Memory, MetaData, Os, Sysinfo, Vcpu, Vcpus};
 use crate::Devices;
 use serde::{Deserialize, Serialize};
 
@@ -24,9 +24,11 @@ pub struct Domain {
 
     pub name: String,
     pub memory: Memory,
-    pub vcpu: u32,
-    pub os: Os,
+    pub vcpu: Vcpu, //虚拟机最大cpu
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub sysinfo: Option<Sysinfo>,
+    pub vcpus: Option<Vcpus>, //控制每个vcpu的状态
+    pub os: Os, // 虚拟机的引导
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sysinfo: Option<Vec<Sysinfo>>,
     pub devices: Devices,
 }
