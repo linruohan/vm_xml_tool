@@ -11,6 +11,7 @@ mod os;
 mod sysinfo;
 mod utils;
 mod vcpu;
+mod resource;
 
 use blkiotune::BlkioTune;
 use cputune::Cputune;
@@ -25,3 +26,4 @@ use os::Os;
 use sysinfo::Sysinfo;
 pub use utils::*;
 use vcpu::{Vcpu, Vcpus};
+use resource::ResourceConfig;

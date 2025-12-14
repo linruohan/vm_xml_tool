@@ -139,6 +139,12 @@
             <write_iops_sec>20000</write_iops_sec>
         </device>
     </blkiotune>
+    <!--resource>
+        <partition>/virtualmachines/production</partition>
+    </resource-->
+    <resource>
+        <fibrechannel appid='userProvidedID'/>
+    </resource>
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>
