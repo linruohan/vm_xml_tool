@@ -7,6 +7,7 @@ pub use smbios::SmbiosSysinfo;
 use smbios::{BaseBoardInfo, BiosInfo, ChassisInfo, OemStringsInfo, SystemInfo};
 
 // sysinfo 解析有问题，暂时不能用
+#[allow(dead_code)]
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Sysinfo {
     #[serde(rename = "@type")]
