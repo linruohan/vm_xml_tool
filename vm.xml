@@ -145,6 +145,21 @@
     <resource>
         <fibrechannel appid='userProvidedID'/>
     </resource>
+    <cpu match='exact'>
+        <model fallback='allow'>core2duo</model>
+        <vendor>Intel</vendor>
+        <topology sockets='1' dies='1' clusters='1' cores='2' threads='1'/>
+        <cache level='3' mode='emulate'/>
+        <maxphysaddr mode='emulate' bits='42'/>
+        <feature policy='disable' name='lahf_lm'/>
+    </cpu>
+    <!--cpu mode='host-model'>
+        <model fallback='forbid'/>
+        <topology sockets='1' dies='1' clusters='1' cores='2' threads='1'/>
+    </cpu-->
+    <!--cpu>
+        <topology sockets='1' dies='1' clusters='1' cores='2' threads='1'/>
+    </cpu-->
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>

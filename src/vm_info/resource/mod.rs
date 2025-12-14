@@ -1,7 +1,9 @@
 use serde::{Deserialize, Serialize};
 
-mod partition;
 mod fibrechannel;
+mod partition;
+mod resource_manager;
+
 use fibrechannel::FibreChannelConfig;
 use partition::PartitionConfig;
 

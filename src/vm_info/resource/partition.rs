@@ -49,7 +49,7 @@ impl PartitionConfig {
 }
 
 /// 分区路径
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct PartitionPath {
     path: PathBuf,
 }
@@ -93,8 +93,11 @@ impl PartitionPath {
             errors.push("Partition path should not contain empty components".to_string());
         }
 
-        if path_str.contains("/./") || path_str.contains("/../") ||
-            path_str.starts_with("./") || path_str.starts_with("../") {
+        if path_str.contains("/./")
+            || path_str.contains("/../")
+            || path_str.starts_with("./")
+            || path_str.starts_with("../")
+        {
             errors.push("Partition path should not contain relative components".to_string());
         }
 
@@ -109,21 +112,38 @@ impl PartitionPath {
                 }
 
                 if comp.len() > 255 {
-                    errors.push(format!("Partition component too long ({} chars): {}", comp.len(), comp));
+                    errors.push(format!(
+                        "Partition component too long ({} chars): {}",
+                        comp.len(),
+                        comp
+                    ));
                 }
 
                 // 检查无效字符（适用于cgroups路径）
-                if comp.contains(|c: char|
-                    c == '\0' || c == '/' || c == '\\' ||
-                        c == ':' || c == '*' || c == '?' ||
-                        c == '"' || c == '<' || c == '>' || c == '|'
-                ) {
-                    errors.push(format!("Partition component contains invalid character: {}", comp));
+                if comp.contains(|c: char| {
+                    c == '\0'
+                        || c == '/'
+                        || c == '\\'
+                        || c == ':'
+                        || c == '*'
+                        || c == '?'
+                        || c == '"'
+                        || c == '<'
+                        || c == '>'
+                        || c == '|'
+                }) {
+                    errors.push(format!(
+                        "Partition component contains invalid character: {}",
+                        comp
+                    ));
                 }
 
                 // cgroups 特定限制：不能以点开头（除了 "." 和 ".."）
                 if comp.starts_with('.') && comp != "." && comp != ".." {
-                    errors.push(format!("Partition component should not start with dot: {}", comp));
+                    errors.push(format!(
+                        "Partition component should not start with dot: {}",
+                        comp
+                    ));
                 }
             }
         }
@@ -185,8 +205,8 @@ impl PartitionPath {
 // 序列化实现
 impl Serialize for PartitionPath {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-                    where
-                        S: serde::Serializer,
+    where
+        S: serde::Serializer,
     {
         serializer.serialize_str(self.as_str())
     }
@@ -194,8 +214,8 @@ impl Serialize for PartitionPath {
 
 impl<'de> Deserialize<'de> for PartitionPath {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-                      where
-                          D: serde::Deserializer<'de>,
+    where
+        D: serde::Deserializer<'de>,
     {
         struct PartitionPathVisitor;
 
@@ -207,8 +227,8 @@ impl<'de> Deserialize<'de> for PartitionPath {
             }
 
             fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
-                            where
-                                E: serde::de::Error,
+            where
+                E: serde::de::Error,
             {
                 Ok(PartitionPath::new(value))
             }

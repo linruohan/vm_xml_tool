@@ -36,8 +36,13 @@ impl FibreChannelConfig {
         }
 
         // 检查是否包含空格或控制字符
-        if self.app_id.chars().any(|c| c.is_whitespace() || c.is_control()) {
-            errors.push("Fibre Channel appid contains whitespace or control characters".to_string());
+        if self
+            .app_id
+            .chars()
+            .any(|c| c.is_whitespace() || c.is_control())
+        {
+            errors
+                .push("Fibre Channel appid contains whitespace or control characters".to_string());
         }
 
         // 检查是否为有效的 ASCII 字符串（可选，取决于内核要求）
