@@ -48,3 +48,9 @@ pub struct OemStringsInfo {
     #[serde(rename = "entry", default)]
     pub entries: Vec<SysinfoEntry>,
 }
+
+#[derive(Debug, Deserialize, Serialize, PartialEq)]
+pub struct OemStringEntry {
+    #[serde(rename = "$text")]
+    pub value: String,
+}

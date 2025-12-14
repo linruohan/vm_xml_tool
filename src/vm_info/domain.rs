@@ -1,6 +1,7 @@
 use super::{Memory, MetaData, Os, Vcpu, Vcpus};
-use crate::Devices;
+use crate::vm_info::cputune::Cputune;
 use crate::vm_info::sysinfo::{FwcfgSysinfo, SmbiosSysinfo};
+use crate::Devices;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -33,5 +34,7 @@ pub struct Domain {
     pub smbios_sysinfo: Option<SmbiosSysinfo>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fwcfg_sysinfo: Option<FwcfgSysinfo>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cputune: Option<Cputune>, // cpu可调参数
     pub devices: Devices,
 }

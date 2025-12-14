@@ -1,6 +1,5 @@
 <domain type="kvm">
-
-    <sysinfo type='smbios'>
+    <!--sysinfo type='smbios'>
         <bios>
             <entry name='vendor'>LENOVO</entry>
         </bios>
@@ -26,9 +25,9 @@
             <entry>myappname:some arbitrary data</entry>
             <entry>otherappname:more arbitrary data</entry>
         </oemStrings>
-    </sysinfo>
-    <!--sysinfo type='fwcfg'>
+    </sysinfo-->
+    <sysinfo type='fwcfg'>
         <entry name='opt/com.example/name'>example value</entry>
         <entry name='opt/com.coreos/config' file='/tmp/provision.ign'/>
-    </sysinfo-->
+    </sysinfo>
 </domain>

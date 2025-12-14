@@ -38,6 +38,6 @@ pub struct SysinfoEntry {
     #[serde(rename = "@file", skip_serializing_if = "Option::is_none")]
     pub file: Option<String>,
 
-    #[serde(rename = "$text", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    #[serde(rename = "$text")]
+    pub value: String,
 }
