@@ -101,6 +101,18 @@
     <maxMemory slots='16' unit='KiB'>1524288</maxMemory>
     <memory unit='KiB'>524288</memory>
     <currentMemory unit='KiB'>524288</currentMemory>
+    <memoryBacking>
+        <hugepages>
+            <page size="1" unit="G" nodeset="0-3,5"/>
+            <page size="2" unit="M" nodeset="4"/>
+        </hugepages>
+        <nosharepages/>
+        <locked/>
+        <source type="file"/>
+        <access mode="shared"/>
+        <allocation mode="immediate" threads='8'/>
+        <discard/>
+    </memoryBacking>
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>

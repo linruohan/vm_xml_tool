@@ -6,17 +6,19 @@ use crate::vm_info::sysinfo::smbios::{
 };
 use serde::{Deserialize, Serialize};
 
-
 #[derive(Debug, Deserialize, Serialize)]
-pub(crate) struct Sysinfo {
+pub struct Sysinfo {
     #[serde(rename = "@type")]
     sysinfo_type: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     bios: Option<BiosInfo>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     system: Option<SystemInfo>,
-    #[serde(rename = "baseBoard")]
+    #[serde(rename = "baseBoard", skip_serializing_if = "Option::is_none")]
     base_board: Option<BaseBoardInfo>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     chassis: Option<ChassisInfo>,
-    #[serde(rename = "oemStrings")]
+    #[serde(rename = "oemStrings", skip_serializing_if = "Option::is_none")]
     oem_strings: Option<OemStringsInfo>,
 
     #[serde(rename = "entry", default)]
