@@ -16,6 +16,7 @@ mod vcpu;
 
 use blkiotune::BlkioTune;
 use cpu::CpuConfig;
+use cpu::*;
 use cputune::Cputune;
 pub use devices::Devices;
 pub use domain::Domain;

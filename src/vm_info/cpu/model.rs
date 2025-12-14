@@ -50,13 +50,14 @@ impl CpuModel {
         }
 
         if let Some(vendor_id) = &self.vendor_id
-            && vendor_id.len() != 12 {
-                errors.push(format!(
-                    "vendor_id must be exactly 12 characters, got '{}' ({} chars)",
-                    vendor_id,
-                    vendor_id.len()
-                ));
-            }
+            && vendor_id.len() != 12
+        {
+            errors.push(format!(
+                "vendor_id must be exactly 12 characters, got '{}' ({} chars)",
+                vendor_id,
+                vendor_id.len()
+            ));
+        }
 
         if errors.is_empty() {
             Ok(())

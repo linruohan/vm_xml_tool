@@ -69,14 +69,16 @@ impl CpuTopology {
         }
 
         if let Some(dies) = self.dies
-            && dies == 0 {
-                errors.push("dies must be greater than 0 if specified".to_string());
-            }
+            && dies == 0
+        {
+            errors.push("dies must be greater than 0 if specified".to_string());
+        }
 
         if let Some(clusters) = self.clusters
-            && clusters == 0 {
-                errors.push("clusters must be greater than 0 if specified".to_string());
-            }
+            && clusters == 0
+        {
+            errors.push("clusters must be greater than 0 if specified".to_string());
+        }
 
         // 检查 vCPU 数量
         let total_vcpus = self.total_vcpus();
@@ -86,12 +88,13 @@ impl CpuTopology {
 
         // 检查与域配置的一致性
         if let Some(max_vcpus) = max_vcpus
-            && total_vcpus > max_vcpus {
-                errors.push(format!(
-                    "CPU topology requires {} vCPUs but domain only allows {}",
-                    total_vcpus, max_vcpus
-                ));
-            }
+            && total_vcpus > max_vcpus
+        {
+            errors.push(format!(
+                "CPU topology requires {} vCPUs but domain only allows {}",
+                total_vcpus, max_vcpus
+            ));
+        }
 
         // 检查常见限制
         if self.threads > 8 {

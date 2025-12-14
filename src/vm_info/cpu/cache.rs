@@ -46,12 +46,13 @@ impl CpuCache {
         let mut errors = Vec::new();
 
         if let Some(level) = self.level
-            && (!(1..=4).contains(&level)) {
-                errors.push(format!(
-                    "Cache level must be between 1 and 4, got {}",
-                    level
-                ));
-            }
+            && (!(1..=4).contains(&level))
+        {
+            errors.push(format!(
+                "Cache level must be between 1 and 4, got {}",
+                level
+            ));
+        }
 
         if errors.is_empty() {
             Ok(())

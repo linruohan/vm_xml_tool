@@ -12,7 +12,6 @@ pub enum CpuMatch {
     Strict,
 }
 
-
 impl fmt::Display for CpuMatch {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {

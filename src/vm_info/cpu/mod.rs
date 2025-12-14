@@ -4,6 +4,7 @@ mod cpu_mode;
 mod feature;
 mod maxphysaddr;
 mod model;
+mod numa;
 mod topology;
 
 use crate::vm_info::cpu::maxphysaddr::MaxPhysAddr;
@@ -12,6 +13,7 @@ use cpu_match::*;
 use cpu_mode::*;
 use feature::*;
 use model::CpuModel;
+pub use numa::NumaTopology;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use topology::CpuTopology;
@@ -26,7 +28,6 @@ pub enum CpuCheck {
     #[default]
     Full,
 }
-
 
 /// CPU 配置
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone, Default)]
@@ -275,9 +276,10 @@ impl CpuConfig {
 
         // 检查供应商长度
         if let Some(vendor) = &self.vendor
-            && vendor.is_empty() {
-                errors.push("Vendor string cannot be empty if specified".to_string());
-            }
+            && vendor.is_empty()
+        {
+            errors.push("Vendor string cannot be empty if specified".to_string());
+        }
 
         if errors.is_empty() {
             Ok(())

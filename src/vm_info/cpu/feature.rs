@@ -14,7 +14,6 @@ pub enum FeaturePolicy {
     Forbid,
 }
 
-
 impl fmt::Display for FeaturePolicy {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {

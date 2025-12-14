@@ -13,7 +13,6 @@ pub enum CpuMode {
     Maximum,
 }
 
-
 impl fmt::Display for CpuMode {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
@@ -34,4 +33,3 @@ pub enum FallbackPolicy {
     Allow,
     Forbid,
 }
-

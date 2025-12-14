@@ -82,12 +82,13 @@ impl MaxPhysAddr {
                 }
 
                 if let Some(limit) = self.limit
-                    && limit > 52 {
-                        errors.push(format!(
-                            "limit ({}) exceeds maximum supported value (52)",
-                            limit
-                        ));
-                    }
+                    && limit > 52
+                {
+                    errors.push(format!(
+                        "limit ({}) exceeds maximum supported value (52)",
+                        limit
+                    ));
+                }
             }
         }
 

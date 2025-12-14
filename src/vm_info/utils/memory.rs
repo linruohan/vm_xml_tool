@@ -15,6 +15,8 @@ pub enum MemoryUnit {
     GiB,
     #[serde(rename = "TiB")]
     TiB,
+    #[serde(rename = "B")]
+    B,
     #[serde(rename = "K")]
     K, // 兼容旧格式
     #[serde(rename = "M")]
@@ -23,6 +25,38 @@ pub enum MemoryUnit {
     G,
     #[serde(rename = "T")]
     T,
+}
+
+impl MemoryUnit {
+    /// 转换为字节数
+    pub fn to_bytes(&self, value: u64) -> u64 {
+        match self {
+            MemoryUnit::Bytes | MemoryUnit::B => value,
+            MemoryUnit::KiB | MemoryUnit::K => value * 1024,
+            MemoryUnit::MiB | MemoryUnit::M => value * 1024 * 1024,
+            MemoryUnit::GiB | MemoryUnit::G => value * 1024 * 1024 * 1024,
+            MemoryUnit::TiB | MemoryUnit::T => value * 1024 * 1024 * 1024 * 1024,
+        }
+    }
+
+    /// 从字节数转换
+    pub fn from_bytes(bytes: u64) -> (u64, MemoryUnit) {
+        let units = [
+            (MemoryUnit::TiB, 1024u64 * 1024 * 1024 * 1024),
+            (MemoryUnit::GiB, 1024 * 1024 * 1024),
+            (MemoryUnit::MiB, 1024 * 1024),
+            (MemoryUnit::KiB, 1024),
+            (MemoryUnit::Bytes, 1),
+        ];
+
+        for (unit, divisor) in units {
+            if bytes >= divisor {
+                return (bytes / divisor, unit);
+            }
+        }
+
+        (bytes, MemoryUnit::Bytes)
+    }
 }
 
 impl FromStr for MemoryUnit {
@@ -66,7 +100,7 @@ impl MemoryValue {
     pub fn to_kib(&self) -> u64 {
         let unit = self.unit.unwrap_or_default();
         match unit {
-            MemoryUnit::Bytes => self.value / 1024,
+            MemoryUnit::Bytes | MemoryUnit::B => self.value / 1024,
             MemoryUnit::KiB | MemoryUnit::K => self.value,
             MemoryUnit::MiB | MemoryUnit::M => self.value * 1024,
             MemoryUnit::GiB | MemoryUnit::G => self.value * 1024 * 1024,
@@ -85,7 +119,7 @@ impl MemoryValue {
     /// 获取人类可读的字符串
     pub fn to_human_readable(&self) -> String {
         let (value, unit_str) = match self.unit {
-            Some(MemoryUnit::Bytes) => (self.value as f64, "bytes"),
+            Some(MemoryUnit::Bytes | MemoryUnit::B) => (self.value as f64, "bytes"),
             Some(MemoryUnit::KiB | MemoryUnit::K) => (self.value as f64, "KiB"),
             Some(MemoryUnit::MiB | MemoryUnit::M) => (self.value as f64, "MiB"),
             Some(MemoryUnit::GiB | MemoryUnit::G) => (self.value as f64, "GiB"),
