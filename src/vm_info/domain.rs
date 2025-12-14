@@ -1,6 +1,7 @@
 use super::memory::{CurrentMemory, MaxMemory};
 use super::{
-    Cputune, Devices, MemTune, Memory, MemoryBacking, MetaData, NumaTune, Os, Sysinfo, Vcpu, Vcpus,
+    BlkioTune, Cputune, Devices, MemTune, Memory, MemoryBacking, MetaData, NumaTune, Os, Sysinfo,
+    Vcpu, Vcpus,
 };
 use serde::{Deserialize, Serialize};
 
@@ -45,6 +46,8 @@ pub struct Domain {
     pub memtune: Option<MemTune>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub numatune: Option<NumaTune>,
+    #[serde(rename = "blkiotune", skip_serializing_if = "Option::is_none")]
+    pub blkio_tune: Option<BlkioTune>,
     // 设备
     pub devices: Devices,
 }

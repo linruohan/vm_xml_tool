@@ -1,3 +1,4 @@
+mod blkiotune;
 mod cputune;
 mod devices;
 mod domain;
@@ -11,6 +12,7 @@ mod sysinfo;
 mod utils;
 mod vcpu;
 
+use blkiotune::BlkioTune;
 use cputune::Cputune;
 pub use devices::Devices;
 pub use domain::Domain;
