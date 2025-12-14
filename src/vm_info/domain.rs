@@ -1,6 +1,5 @@
 use super::memory::{CurrentMemory, MaxMemory};
-use super::{Cputune, Devices, Memory, MemoryBacking, MetaData, Os, Sysinfo, Vcpu, Vcpus};
-use crate::vm_info::memtune::Memtune;
+use super::{Cputune, Devices, MemTune, Memory, MemoryBacking, MetaData, Os, Sysinfo, Vcpu, Vcpus};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -41,7 +40,7 @@ pub struct Domain {
     #[serde(rename = "memoryBacking", skip_serializing_if = "Option::is_none")]
     pub memory_backing: Option<MemoryBacking>, // 虚拟内存页
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub memtune: Option<Memtune>,
+    pub memtune: Option<MemTune>,
     // 设备
     pub devices: Devices,
 }

@@ -7,6 +7,7 @@ mod memtune;
 mod meta_data;
 mod os;
 mod sysinfo;
+mod utils;
 mod vcpu;
 
 use cputune::Cputune;
@@ -14,7 +15,9 @@ pub use devices::Devices;
 pub use domain::Domain;
 use memory::Memory;
 use memory_backing::MemoryBacking;
+use memtune::MemTune;
 use meta_data::MetaData;
 use os::Os;
 use sysinfo::Sysinfo;
+pub use utils::*;
 use vcpu::{Vcpu, Vcpus};

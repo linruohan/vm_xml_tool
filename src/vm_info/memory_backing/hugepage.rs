@@ -1,3 +1,4 @@
+use crate::MemoryUnit;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 use std::fmt::{Display, Formatter};
@@ -41,12 +42,11 @@ impl HugePage {
     pub fn from_string(size: u64, unit_str: &str, nodeset_str: &str) -> Result<Self, String> {
         let unit = match unit_str {
             "B" => MemoryUnit::Bytes,
-            "k" => MemoryUnit::Kilobytes,
-            "K" => MemoryUnit::Kibibytes,
-            "M" => MemoryUnit::Mebibytes,
-            "G" => MemoryUnit::Gibibytes,
-            "T" => MemoryUnit::Tebibytes,
-            "P" => MemoryUnit::Pebibytes,
+            "k" => MemoryUnit::KiB,
+            "K" => MemoryUnit::K,
+            "M" => MemoryUnit::MiB,
+            "G" => MemoryUnit::GiB,
+            "T" => MemoryUnit::TiB,
             _ => return Err(format!("Unknown unit: {}", unit_str)),
         };
 
@@ -59,26 +59,6 @@ impl HugePage {
         Ok(Self::new(size, Some(unit), nodeset))
     }
 }
-/// Memory unit for size specification
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-pub enum MemoryUnit {
-    #[serde(rename = "B")]
-    Bytes,
-    #[serde(rename = "k")]
-    Kilobytes, // 1000
-    #[serde(rename = "K")]
-    #[default]
-    Kibibytes, // 1024 (default)
-    #[serde(rename = "M")]
-    Mebibytes, // 1024^2
-    #[serde(rename = "G")]
-    Gibibytes, // 1024^3
-    #[serde(rename = "T")]
-    Tebibytes, // 1024^4
-    #[serde(rename = "P")]
-    Pebibytes, // 1024^5
-}
-
 /// NUMA nodeset representation (e.g., "0-3,5")
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NumaNodeSet {
