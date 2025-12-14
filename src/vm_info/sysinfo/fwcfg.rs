@@ -1,13 +1,16 @@
 use serde::{Deserialize, Serialize};
-
 // FWCFG 类型的 sysinfo
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename = "sysinfo")]
 pub struct FwcfgSysinfo {
+    #[serde(rename = "@type")]
+    pub sysinfo_type: String, //"fwcfg"
     #[serde(rename = "entry", default)]
     pub entries: Vec<FwcfgEntry>,
 }
 
 // FWCFG 条目
+#[allow(unused)]
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct FwcfgEntry {
     #[serde(rename = "@name")]

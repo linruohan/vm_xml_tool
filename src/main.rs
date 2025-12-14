@@ -1,8 +1,8 @@
-use vm_xml_tool::{read_vm_config, write_vm_config, Domain};
+use vm_xml_tool::{Domain, read_vm_config, write_vm_config};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 读取配置
-    let mut vm: Domain = read_vm_config("vm.xml")?;
+    let mut vm: Domain = read_vm_config("vm1.xml")?;
     println!("Read VM config:{:#?}", vm);
     // 修改配置（例如增加内存）
     vm.memory.value = 2097152; // 2GB

@@ -14,8 +14,8 @@ pub struct Vcpu {
 }
 // vcpus
 #[derive(Debug, Deserialize, Serialize)]
-pub struct Vcpus{
-    pub vcpu:Vec<VcpusItem>
+pub struct Vcpus {
+    pub vcpu: Vec<VcpusItem>,
 }
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename = "vcpu")]
@@ -29,4 +29,3 @@ pub struct VcpusItem {
     #[serde(rename = "@order", skip_serializing_if = "Option::is_none")]
     pub order: Option<u32>,
 }
-

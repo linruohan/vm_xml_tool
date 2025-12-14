@@ -1,5 +1,6 @@
-use super::{Memory, MetaData, Os, Sysinfo, Vcpu, Vcpus};
+use super::{Memory, MetaData, Os, Vcpu, Vcpus};
 use crate::Devices;
+use crate::vm_info::sysinfo::{FwcfgSysinfo, SmbiosSysinfo};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -27,8 +28,10 @@ pub struct Domain {
     pub vcpu: Vcpu, //虚拟机最大cpu
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vcpus: Option<Vcpus>, //控制每个vcpu的状态
-    pub os: Os, // 虚拟机的引导
+    pub os: Os,     // 虚拟机的引导
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub sysinfo: Option<Vec<Sysinfo>>,
+    pub smbios_sysinfo: Option<SmbiosSysinfo>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fwcfg_sysinfo: Option<FwcfgSysinfo>,
     pub devices: Devices,
 }

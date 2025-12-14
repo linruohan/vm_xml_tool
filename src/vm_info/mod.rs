@@ -11,5 +11,4 @@ pub use domain::Domain;
 use memory::Memory;
 use meta_data::MetaData;
 use os::Os;
-use sysinfo::Sysinfo;
 use vcpu::{Vcpu, Vcpus};
