@@ -71,7 +71,6 @@ impl MemoryValue {
             MemoryUnit::MiB | MemoryUnit::M => self.value * 1024,
             MemoryUnit::GiB | MemoryUnit::G => self.value * 1024 * 1024,
             MemoryUnit::TiB | MemoryUnit::T => self.value * 1024 * 1024 * 1024,
-            MemoryUnit::TiB | MemoryUnit::T => self.value * 1024 * 1024 * 1024,
         }
     }
 

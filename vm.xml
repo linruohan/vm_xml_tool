@@ -119,6 +119,11 @@
         <swap_hard_limit unit='G'>2</swap_hard_limit>
         <min_guarantee unit='bytes'>67108864</min_guarantee>
     </memtune>
+    <numatune>
+        <memory mode="strict" nodeset="1-4,^3"/>
+        <memnode cellid="0" mode="strict" nodeset="1"/>
+        <memnode cellid="2" mode="preferred" nodeset="2"/>
+    </numatune>
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>
