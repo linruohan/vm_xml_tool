@@ -75,6 +75,10 @@ pub struct CpuConfig {
     #[serde(rename = "maxphysaddr", skip_serializing_if = "Option::is_none")]
     pub max_phys_addr: Option<MaxPhysAddr>,
 
+    /// NUMA 拓扑配置
+    #[serde(rename = "numa", skip_serializing_if = "Option::is_none")]
+    pub numa_topology: Option<NumaTopology>,
+
     /// CPU 特性列表
     #[serde(rename = "feature", skip_serializing_if = "Option::is_none")]
     pub features: Option<Vec<CpuFeature>>,

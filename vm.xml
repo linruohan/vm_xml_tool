@@ -145,22 +145,21 @@
     <resource>
         <fibrechannel appid='userProvidedID'/>
     </resource>
-    <cpu match='exact'>
+    <!--cpu match='exact'>
         <model fallback='allow'>core2duo</model>
         <vendor>Intel</vendor>
         <topology sockets='1' dies='1' clusters='1' cores='2' threads='1'/>
         <cache level='3' mode='emulate'/>
         <maxphysaddr mode='emulate' bits='42'/>
         <feature policy='disable' name='lahf_lm'/>
-    </cpu>
+    </cpu-->
     <!--cpu mode='host-model'>
         <model fallback='forbid'/>
         <topology sockets='1' dies='1' clusters='1' cores='2' threads='1'/>
     </cpu-->
-    <!--cpu>
+    <cpu>
         <topology sockets='1' dies='1' clusters='1' cores='2' threads='1'/>
-    </cpu-->
-    <!--numa>
+        <numa>
         <cell id='0' cpus='0,4-7' memory='512000' unit='KiB'>
             <distances>
                 <sibling id='0' value='10'/>
@@ -193,21 +192,27 @@
                 <sibling id='3' value='10'/>
             </distances>
         </cell>
-    </numa-->
-    <numa>
-        <cell id='0' cpus='0-3' memory='2097152' unit='KiB' discard='yes'>
-            <cache level='1' associativity='direct' policy='writeback'>
-                <size value='10' unit='KiB'/>
-                <line value='8' unit='B'/>
-            </cache>
-        </cell>
-        <cell id='1' cpus='4-7' memory='512000' unit='KiB' memAccess='shared'/>
-        <interconnects>
-            <latency initiator='0' target='0' type='access' value='5'/>
-            <latency initiator='0' target='0' cache='1' type='access' value='10'/>
-            <bandwidth initiator='0' target='0' type='access' value='204800' unit='KiB'/>
-        </interconnects>
-    </numa>
+        </numa>
+        <!--numa>
+            <cell id='0' cpus='0-3' memory='2097152' unit='KiB' discard='yes'>
+                <cache level='1' associativity='direct' policy='writeback'>
+                    <size value='10' unit='KiB'/>
+                    <line value='8' unit='B'/>
+                </cache>
+            </cell>
+            <cell id='1' cpus='4-7' memory='512000' unit='KiB' memAccess='shared'/>
+            <interconnects>
+                <latency initiator='0' target='0' type='access' value='5'/>
+                <latency initiator='0' target='0' cache='1' type='access' value='10'/>
+                <bandwidth initiator='0' target='0' type='access' value='204800' unit='KiB'/>
+            </interconnects>
+        </numa-->
+    </cpu>
+
+    <on_poweroff>destroy</on_poweroff>
+    <on_reboot>restart</on_reboot>
+    <on_crash>restart</on_crash>
+    <on_lockfailure>poweroff</on_lockfailure>
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>

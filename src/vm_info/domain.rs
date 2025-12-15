@@ -1,7 +1,7 @@
 use super::memory::{CurrentMemory, MaxMemory};
 use super::{
-    BlkioTune, CpuConfig, Cputune, Devices, MemTune, Memory, MemoryBacking, MetaData, NumaTopology,
-    NumaTune, Os, ResourceConfig, Sysinfo, Vcpu, Vcpus,
+    BlkioTune, CpuConfig, Cputune, Devices, LifecycleAction, MemTune, Memory, MemoryBacking,
+    MetaData, NumaTune, Os, ResourceConfig, Sysinfo, Vcpu, Vcpus,
 };
 use serde::{Deserialize, Serialize};
 
@@ -53,9 +53,16 @@ pub struct Domain {
     /// CPU 配置
     #[serde(rename = "cpu", skip_serializing_if = "Option::is_none")]
     pub cpu: Option<CpuConfig>,
-    /// NUMA 拓扑配置
-    #[serde(rename = "numa", skip_serializing_if = "Option::is_none")]
-    pub numa_topology: Option<NumaTopology>,
+
+    /// 生命周期配置
+    #[serde(rename = "on_poweroff", skip_serializing_if = "Option::is_none")]
+    pub on_poweroff: Option<LifecycleAction>,
+    #[serde(rename = "on_reboot", skip_serializing_if = "Option::is_none")]
+    pub on_reboot: Option<LifecycleAction>,
+    #[serde(rename = "on_crash", skip_serializing_if = "Option::is_none")]
+    pub on_crash: Option<LifecycleAction>,
+    #[serde(rename = "on_lockfailure", skip_serializing_if = "Option::is_none")]
+    pub on_lockfailure: Option<LifecycleAction>,
     // 设备
     pub devices: Devices,
 }
