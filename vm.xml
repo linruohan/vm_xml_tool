@@ -213,6 +213,10 @@
     <on_reboot>restart</on_reboot>
     <on_crash>restart</on_crash>
     <on_lockfailure>poweroff</on_lockfailure>
+    <pm>
+        <suspend-to-disk enabled='no'/>
+        <suspend-to-mem enabled='yes'/>
+    </pm>
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>
