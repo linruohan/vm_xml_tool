@@ -217,6 +217,14 @@
         <suspend-to-disk enabled='no'/>
         <suspend-to-mem enabled='yes'/>
     </pm>
+    <throttlegroups>
+        <throttlegroup>
+            <group_name>limit0</group_name>
+            <total_bytes_sec>10000000</total_bytes_sec>
+            <read_iops_sec>400000</read_iops_sec>
+            <write_iops_sec>100000</write_iops_sec>
+        </throttlegroup>
+    </throttlegroups>
     <devices>
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2"/>

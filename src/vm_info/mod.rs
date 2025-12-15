@@ -13,6 +13,7 @@ mod os;
 mod pm;
 mod resource;
 mod sysinfo;
+mod throttlegroups;
 mod utils;
 mod vcpu;
 
@@ -31,5 +32,6 @@ use os::Os;
 use pm::PowerManagement;
 use resource::ResourceConfig;
 use sysinfo::Sysinfo;
+use throttlegroups::ThrottleGroups;
 pub use utils::*;
 use vcpu::{Vcpu, Vcpus};
