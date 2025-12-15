@@ -294,12 +294,13 @@ impl ThrottleGroup {
         errors: &mut Vec<String>,
     ) {
         if let (Some(base), Some(max)) = (base_value, max_value)
-            && max < base {
-                errors.push(format!(
-                    "{} ({}) cannot be less than {} ({})",
-                    max_name, max, base_name, base
-                ));
-            }
+            && max < base
+        {
+            errors.push(format!(
+                "{} ({}) cannot be less than {} ({})",
+                max_name, max, base_name, base
+            ));
+        }
     }
 
     fn has_any_limit_set(&self) -> bool {

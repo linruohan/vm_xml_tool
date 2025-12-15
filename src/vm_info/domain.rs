@@ -1,7 +1,8 @@
 use super::memory::{CurrentMemory, MaxMemory};
 use super::{
-    BlkioTune, CpuConfig, Cputune, Devices, LifecycleAction, MemTune, Memory, MemoryBacking,
-    MetaData, NumaTune, Os, PowerManagement, ResourceConfig, Sysinfo, ThrottleGroups, Vcpu, Vcpus,
+    BlkioTune, CpuConfig, Cputune, Devices, Features, LifecycleAction, MemTune, Memory,
+    MemoryBacking, MetaData, NumaTune, Os, PowerManagement, ResourceConfig, Sysinfo,
+    ThrottleGroups, Vcpu, Vcpus,
 };
 use serde::{Deserialize, Serialize};
 
@@ -69,6 +70,10 @@ pub struct Domain {
     /// 限流组配置
     #[serde(rename = "throttlegroups", skip_serializing_if = "Option::is_none")]
     pub throttle_groups: Option<ThrottleGroups>,
+    /// 特性
+    #[serde(rename = "features", skip_serializing_if = "Option::is_none")]
+    pub features: Option<Features>,
+
     // 设备
     pub devices: Devices,
 }

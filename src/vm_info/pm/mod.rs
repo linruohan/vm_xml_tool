@@ -64,9 +64,10 @@ impl PowerManagement {
     }
 
     /// 检查睡眠状态是否启用
-    pub fn is_state_enabled(&self, state: SleepState) -> Option<String> {
+    pub fn is_state_enabled(&self, state: SleepState) -> bool {
         self.get_state_config(state)
-            .map(|config| config.enabled.clone())
+            .map(|config| config.enabled == "yes")
+            .unwrap_or(false)
     }
 
     /// 验证配置
@@ -106,15 +107,10 @@ impl PowerManagement {
         }
 
         // 检查是否有任何睡眠状态启用
-        let any_enabled = self
-            .is_state_enabled(SleepState::SuspendToMem)
-            .unwrap_or("no".to_string());
-        || {
-            self.is_state_enabled(SleepState::SuspendToDisk)
-                .unwrap_or("no".to_string())
-        };
+        let any_enabled = self.is_state_enabled(SleepState::SuspendToMem)
+            || self.is_state_enabled(SleepState::SuspendToDisk);
 
-        if any_enabled == "yes" {
+        if any_enabled {
             warnings.push(
                 "Warning: Enabling sleep states may cause unexpected guest suspension".to_string(),
             );
