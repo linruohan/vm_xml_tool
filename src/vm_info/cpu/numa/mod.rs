@@ -300,11 +300,12 @@ impl NumaTopology {
     }
 
     /// 获取距离矩阵
+    #[allow(clippy::needless_range_loop)]
     pub fn get_distance_matrix(&self) -> Vec<Vec<u32>> {
         let total_cells = self.cells.len();
         let mut matrix = vec![vec![20u32; total_cells]; total_cells];
 
-        // 修复：使用 enumerate() 而不是 range loop
+        // 初始化矩阵，设置本地距离为 10
         for (i, row) in matrix.iter_mut().enumerate() {
             row[i] = 10; // 本地距离
 
@@ -319,7 +320,7 @@ impl NumaTopology {
         }
 
         // 确保对称
-        for (i, _cell) in self.cells.iter().enumerate() {
+        for i in 0..total_cells {
             for j in (i + 1)..total_cells {
                 if matrix[i][j] != matrix[j][i] {
                     // 如果不一致，取最大值
